@@ -13,5 +13,11 @@ pip install -r requirements.txt
 # enter repl
 python 
 # look up direct etymology for dynamic (can recurse down provided direct etymologies)
+import ety.data
 ety.data.etyms['eng']['dynamic']
+
+# look up word in dictionary
+from PyDictionary import PyDictionary 
+d = PyDictionary()
+d.meaning('anther') 
 ```

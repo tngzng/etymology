@@ -1,1 +1,2 @@
 ety==1.3.3
+PyDictionary==1.5.2
