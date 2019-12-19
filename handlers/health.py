@@ -5,4 +5,4 @@ class HealthHandler(BaseHandler):
     """Return 200 OK."""
 
     def get(self):
-        self.finish('OK')
+        self.api_response('OK')

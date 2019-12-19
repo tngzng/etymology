@@ -5,7 +5,7 @@ from tornado.ioloop import IOLoop
 import tornado.options
 import tornado.web
 
-# import handlers.origin
+import handlers.origin
 import handlers.health
 
 
@@ -13,9 +13,9 @@ class Application(tornado.web.Application):
     def __init__(self):
         app_handlers = [
             (r'^/health$', handlers.health.HealthHandler),
-            # (r'^/origin/(\S+)/(\S+)?$', handlers.origin.OriginHandler),
+            (r'^/origins/(\S+)/(\S+)?$', handlers.origin.OriginHandler),
         ]
-        super(Application, self).__init__(app_handlers)
+        super(Application, self).__init__(app_handlers, autoreload=True)
 
 
 if __name__ == '__main__':
