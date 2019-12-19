@@ -7,6 +7,7 @@ import tornado.web
 
 import handlers.origin
 import handlers.health
+import handlers.descendant
 
 
 class Application(tornado.web.Application):
@@ -14,6 +15,7 @@ class Application(tornado.web.Application):
         app_handlers = [
             (r'^/health$', handlers.health.HealthHandler),
             (r'^/origins/(\S+)/(\S+)?$', handlers.origin.OriginHandler),
+            (r'^/descendants/(\S+)/(\S+)?$', handlers.descendant.DescendantHandler),
         ]
         super(Application, self).__init__(app_handlers, autoreload=True)
 
