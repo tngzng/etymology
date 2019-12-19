@@ -6,11 +6,12 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def api_response(self, data, code=200):
         self.set_status(code)
-        self.set_header('Content-Type', 'application/json')
+        if isinstance(data, dict):
+            self.set_header('Content-Type', 'application/json')
 
         if not 200 <= code < 300:
-            response = {'message': data}
-        else:
-            response = data
+            data = {'message': data}
+        if not isinstance(data, str):
+            data = json.dumps(data)
 
-        self.finish(response)
+        self.finish(data)
