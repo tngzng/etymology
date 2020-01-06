@@ -40,8 +40,8 @@ def format_definition(definition: Dict[str, Any]) -> Dict[str, Any]:
 
 def get_definition(word: str, language_code: str) -> List[str]:
     try:
-        # TODO add non-english support
-        entries = parser.fetch(word)
+        language = ety.data.iso_639_3_codes[language_code]
+        entries = parser.fetch(word, language=language)
         definitions = [format_definition(d) for d in entries[0]['definitions']]
     except IndexError:
         definitions = []
