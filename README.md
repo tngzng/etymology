@@ -24,9 +24,10 @@ POST /origins
 ```
 
 #### arguments
-**word (required):** string
 
-**language_code (required):** string, an iso 639-3 language code
+word (required): string
+
+language_code (required): string, an iso 639-3 language code
 
 #### example request
 ```
@@ -68,9 +69,9 @@ POST /descendants
 ```
 
 #### arguments
-**word (required):** string
+word (required): string
 
-**language_code (required):** string, an iso 639-3 language code
+language_code (required): string, an iso 639-3 language code
 
 #### example request
 ```
