@@ -5,6 +5,9 @@ import tornado.web
 
 class BaseHandler(tornado.web.RequestHandler):
     """Wrapper for handler abstractions"""
+    def prepare(self):
+        if self.request.headers['Content-Type'] == 'application/json':
+            self.args = json.loads(self.request.body)
 
     def api_response(self, data, code=200):
         self.set_status(code)
