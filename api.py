@@ -14,8 +14,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         app_handlers = [
             (r'^/health$', handlers.health.HealthHandler),
-            (r'^/origins/(\S+)/(\S+)?$', handlers.origin.OriginHandler),
-            (r'^/descendants/(\S+)/(\S+)?$', handlers.descendant.DescendantHandler),
+            (r'^/origins/?$', handlers.origin.OriginHandler),
             (r'^/descendants/?$', handlers.descendant.DescendantHandler),
         ]
         super(Application, self).__init__(app_handlers, autoreload=True)
