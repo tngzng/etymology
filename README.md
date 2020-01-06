@@ -8,6 +8,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## using the api locally
+1. run the api from your virtual environment
+```
+python api.py
+```
+
+2. make requests to `localhost:4000`
+
 ## usage
 ### get word origins 
 #### endpoint 
