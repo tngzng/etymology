@@ -1,8 +1,8 @@
 import ety
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
-class TK(BaseModel):
+class BaseValidator(BaseModel):
     word: str
     language_code: str
 
