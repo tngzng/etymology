@@ -1,12 +1,13 @@
+import re
 from typing import Dict, List, Any
 import multiprocessing as mp
 
 from pydantic import BaseModel
 import ety
-from PyDictionary import PyDictionary
+from wiktionaryparser import WiktionaryParser
 
 
-dictionary = PyDictionary()
+parser = WiktionaryParser()
 origin_descendants = {}
 
 
@@ -25,15 +26,26 @@ class Word(BaseModel):
     word: str
     language: str = 'English'
     language_code: str = 'eng'
-    meaning: Dict[str, List[str]] = {}
+    meaning: List[Dict[str, Any]] = []
 
 
-def get_definition(word: str, language_code: str) -> Dict[str, List[str]]:
+def camel_to_snake(text: str) -> str:
+    text = re.sub(r'(?<!^)(?=[A-Z])', '_', text).lower()
+    return text
+
+
+def format_definition(definition: Dict[str, Any]) -> Dict[str, Any]:
+    return {camel_to_snake(k): v for k, v in definition.items()}
+
+
+def get_definition(word: str, language_code: str) -> List[str]:
     try:
-        definition = dictionary.meaning(word) or {}
+        # TODO add non-english support
+        entries = parser.fetch(word)
+        definitions = [format_definition(d) for d in entries[0]['definitions']]
     except IndexError:
-        definition = {}
-    return definition
+        definitions = []
+    return definitions
 
 
 def ety_to_word(ety_word: ety.word.Word) -> Word:
@@ -46,9 +58,9 @@ def ety_to_word(ety_word: ety.word.Word) -> Word:
 
 
 def word_to_dict(word: Word) -> Dict[str, Any]:
-    dictionary = word.__dict__
-    dictionary['meaning'] = get_definition(word.word, word.language_code)
-    return dictionary
+    word_dict = word.__dict__
+    word_dict['meaning'] = get_definition(word.word, word.language_code)
+    return word_dict
 
 
 def get_origins(word: str, language_code: str) -> List[Word]:
