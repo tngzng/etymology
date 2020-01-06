@@ -12,63 +12,87 @@ pip install -r requirements.txt
 ### get word origins 
 #### endpoint 
 ```
-GET /origins/<language_code>/<word>
+POST /origins
 ```
+
+#### arguments
+**word (required):** string
+
+**language_code (required):** string, an iso 639-3 language code
 
 #### example request
 ```
-GET /origins/eng/anthology
+POST /origins
+{
+    "word": "coruscant",
+    "language_code": "eng"
+{
 ```
 
 #### example response
 ```
 {
-    'results': [
+    "results": [
         {
-            'word': 'anthère',
-            'language': 'French',
-            'language_code': 'fra',
-            'meaning': {}
-        },
-        {
-            'word': 'ἀνθηρός',
-            'language': 'Ancient Greek (to 1453)',
-            'language_code': 'grc',
-            'meaning': {}
+            "word": "coruscare",
+            "language": "Latin",
+            "language_code": "lat",
+            "meaning": [
+                {
+                    "part_of_speech": "verb",
+                    "text": [
+                        "coruscāre",
+                        "present active infinitive of coruscō"
+                    ],
+                    "related_words": [],
+                    "examples": []
+                }
+            ]
         }
     ]
 }
-
 ```
 
 ### get origin descendants 
 #### endpoint 
 ```
-GET /descendants/<language_code>/<word> 
+POST /descendants
 ```
+
+#### arguments
+**word (required):** string
+
+**language_code (required):** string, an iso 639-3 language code
 
 #### example request
 ```
-GET /descendants/fra/anthère
+POST /descendants
+
+{
+    "word": "coruscare",
+    "language_code": "lat"
+}
 ```
 
 #### example response
 ```
 {
-    'results': [
+    "results": [
         {
-            'word': 'anther',
-            'language': 'English',
-            'language_code': 'eng',
-            'meaning': {
-                'Noun': ['the part of the stamen that...']
-            }
-        },
-        {
-            'word': 'antheroid',
-            'language': 'English',
-            'language_code': 'eng',
-            'meaning': {}
+            "word": "coruscant",
+            "language": "English",
+            "language_code": "eng",
+            "meaning": [
+                {
+                    "part_of_speech": "adjective",
+                    "text": [
+                        "coruscant (comparative more coruscant, superlative most coruscant)",
+                        "Emitting flashes of light; glittering."
+                    ],
+                    "related_words": [],
+                    "examples": []
+                }
+            ]
         }
     ]
 }
